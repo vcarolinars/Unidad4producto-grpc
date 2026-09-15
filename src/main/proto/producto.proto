@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package producto;
+
+option java_multiple_files = true;
+option java_package = "com.arquitectura.productogrpc.proto";
+option java_outer_classname = "ProductoProto";
+
+import "google/protobuf/empty.proto";
+
+message Producto {
+  int64 id = 1;
+  string nombre = 2;
+  string descripcion = 3;
+  double precio = 4;
+}
+
+message ProductoCrearRequest {
+  string nombre = 1;
+  string descripcion = 2;
+  double precio = 3;
+}
+
+message ProductoId {
+  int64 id = 1;
+}
+
+message Productos {
+  repeated Producto items = 1;
+}
+
+service ProductoService {
+
+  rpc Create(ProductoCrearRequest) returns (Producto);
+
+  rpc Get(ProductoId) returns (Producto);
+
+  rpc Update(Producto) returns (Producto);
+
+  rpc Delete(ProductoId) returns (Producto);
+
+  rpc List(google.protobuf.Empty) returns (Productos);
+}
